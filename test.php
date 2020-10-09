@@ -1,5 +1,4 @@
 <?php // TASK: You have team with workers. Every worker can make Job and write title and count spend time. After time spending he get price for this time (1$/sec). At end of day he can get sum and clear all records from system
-
 session_start();
 if ( ! isset($_SESSION['tasks'])) $_SESSION['tasks'] = Array();
 if (isset($_POST['add_task'])) {
@@ -16,9 +15,7 @@ if (isset($_POST['add_task'])) {
 ?><html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <title>
-        Task
-    </title>
+    <title>Task</title>
 </head>
 <body style="position:relative;">
     <div class="run_interface" style="position: fixed; bottom:0; width:100%; background: white; border-top: 1px solid silver; text-align: center;">
@@ -45,9 +42,7 @@ if (isset($_POST['add_task'])) {
     let time_counter_is_on = false;
     $('.task_start').on('click', function(){
         if (!time_counter_is_on) {
-            time_counter = setInterval(function(){
-                $('.task_time').html( parseInt($('.task_time').html()) + 1 );
-            }, 1000);
+            time_counter = setInterval(function(){ $('.task_time').html( parseInt($('.task_time').html()) + 1 ) }, 1000);
             time_counter_is_on = true;
         }
     });
@@ -60,9 +55,7 @@ if (isset($_POST['add_task'])) {
         time_counter_is_on = false;
         let new_div = '<div class="work_done">'+ $('.task_name').val() +' - <span class="price_done">' + ( parseInt( $('.task_time').html() ) * 1 ) + '</span></div>';
         $.post('test.php', { add_task : 1, name : $('.task_name').val(), price : parseInt( $('.task_time').html() ) },
-            function(data){
-                console.log(data);
-            }
+            function(data){ console.log(data); }
         );
         $('.task_time').html('0');
         $('.task_name').val('');
