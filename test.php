@@ -15,27 +15,29 @@ if (isset($_POST['add_task'])) {
 } else {
 ?><html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <title>
         Task
     </title>
 </head>
-<body>
-    <div class="run_interface" style="position: fixed; bottom:0; width:100%; height: 100px; background: white; border-top: 1px solid silver; text-align: center;">
-        <input class="task_name" type="text">
+<body style="position:relative;">
+    <div class="run_interface" style="position: fixed; bottom:0; width:100%; background: white; border-top: 1px solid silver; text-align: center;">
+        <input class="task_name" type="text" style="font-size: 16px; line-height: 30px; height: 30px; width: 50%; margin: 10px;">
         <br>
-        <input type="button" value="Start / Go" class="task_start">
-        <input type="button" value="Pause" class="task_pause">
-        <input type="button" value="Finish" class="task_finish">
-        <br>
-        <b>Task Time</b> <span class="task_time">0</span> sec
+        <input type="button" value="Go!" class="task_start" style="width: 20%; height: 100px; font-size: 18px; background: lightgreen;">
+        <input type="button" value="Pause" class="task_pause" style="width: 20%; height: 100px; font-size: 18px; background: lightyellow;">
+        <input type="button" value="Finish" class="task_finish" style="width: 20%; height: 100px; font-size: 18px; background: lightblue;">
+        <div style="margin: 10px; font-size: 18px; ">
+            <b>Task Time</b> <span class="task_time">0</span> sec
+        </div>
     </div>
-    <div class="works_list" style="border: 1px solid silver; width: 90%; margin: 10px; padding: 10px;">
+    <div class="works_list" style="border: 1px solid silver; width: 90%; margin: 10px; padding: 10px; font-size: 18px;">
         <?php foreach ($_SESSION['tasks'] as $task) { ?>
             <div class="work_done"><?=$task['name']?> - <span class="price_done"><?=$task['price']?></span></div>
         <?php } ?>
     </div>
     <br>
-    <input type="button" value="End of Day" class="day_end">
+    <input type="button" value="End of Day" class="day_end" style="width: 40%; height: 100px; font-size: 18px;">
 </body><script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script>
     let task_time = 0;
