@@ -46,9 +46,7 @@ if (isset($_POST['add_task'])) {
     $('.task_start').on('click', function(){
         if (!time_counter_is_on) {
             time_counter = setInterval(function(){
-
                 $('.task_time').html( parseInt($('.task_time').html()) + 1 );
-
             }, 1000);
             time_counter_is_on = true;
         }
@@ -60,21 +58,16 @@ if (isset($_POST['add_task'])) {
     $('.task_finish').on('click', function(){
         clearInterval(time_counter);
         time_counter_is_on = false;
-
         let new_div = '<div class="work_done">'+ $('.task_name').val() +' - <span class="price_done">' + ( parseInt( $('.task_time').html() ) * 1 ) + '</span></div>';
-
         $.post('test.php', { add_task : 1, name : $('.task_name').val(), price : parseInt( $('.task_time').html() ) },
             function(data){
                 console.log(data);
             }
         );
-
         $('.task_time').html('0');
         $('.task_name').val('');
-
         $('.works_list').append(new_div);
     });
-
     $('.day_end').on('click', function(){
         $.post('test.php', { day_end : 1 },
             function(data){
