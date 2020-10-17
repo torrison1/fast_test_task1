@@ -37,22 +37,24 @@ if (isset($_POST['add_task'])) {
     <input type="button" value="End of Day" class="day_end" style="width: 40%; height: 100px; font-size: 18px;">
 </body><script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script>
-    let task_time = 0;
-    let time_counter;
-    let time_counter_is_on = false;
+    let task_time = 0, time_counter, unix_time_tmp = false, time_counter_is_on = false;
     $('.task_start').on('click', function(){
         if (!time_counter_is_on) {
-            time_counter = setInterval(function(){ $('.task_time').html( parseInt($('.task_time').html()) + 1 ) }, 1000);
+            time_counter = setInterval(function(){
+                if (!unix_time_tmp || (Math.round(new Date().getTime() / 1000 - unix_time_tmp) < 2)) $('.task_time').html( parseInt($('.task_time').html()) + 1 );
+                else $('.task_time').html( parseInt($('.task_time').html()) + Math.round(new Date().getTime() / 1000 - unix_time_tmp));
+                unix_time_tmp = Math.round((new Date()).getTime() / 1000);
+            }, 1000);
             time_counter_is_on = true;
         }
     });
     $('.task_pause').on('click', function(){
         clearInterval(time_counter);
-        time_counter_is_on = false;
+        time_counter_is_on = false; unix_time_tmp = false;
     });
     $('.task_finish').on('click', function(){
         clearInterval(time_counter);
-        time_counter_is_on = false;
+        time_counter_is_on = false; unix_time_tmp = false;
         let new_div = '<div class="work_done">'+ $('.task_name').val() +' - <span class="price_done">' + ( parseInt( $('.task_time').html() ) * 1 ) + '</span></div>';
         $.post('test.php', { add_task : 1, name : $('.task_name').val(), price : parseInt( $('.task_time').html() ) },
             function(data){ console.log(data); }
